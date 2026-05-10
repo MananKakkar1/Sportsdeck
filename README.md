@@ -1,93 +1,182 @@
-# PP2
+# SportsDeck
 
+A modern, full-stack web application for sports enthusiasts to discuss matches, teams, and sports-related content through forums, real-time updates, interactive features, and AI-powered sentiment analysis.
 
+## 📋 Features
 
-## Getting started
+- **User Authentication**: Secure login and signup with NextAuth.js and JWT tokens
+- **Community Forums**: Create and participate in sports discussion threads
+- **Match Information**: Live match details, standings, and real-time updates
+- **Team Profiles**: Comprehensive team information with custom themes
+- **User Profiles**: Personalized profiles with following/followers functionality
+- **Interactive Content**: Create polls, posts, and engage with the community
+- **Admin Dashboard**: Moderation tools for managing reports and appeals
+- **AI Sentiment Analysis**: Track community sentiment on match threads using Hugging Face
+- **Responsive Design**: Mobile-friendly interface built with Tailwind CSS
+- **Real-time Data**: Automated cron jobs for match syncing and sentiment computation
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+## 🛠️ Tech Stack
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+- **Frontend**: Next.js 16, React 19, Tailwind CSS
+- **Backend**: Next.js API Routes
+- **Database**: PostgreSQL with Prisma ORM
+- **Authentication**: NextAuth.js with JWT
+- **Caching**: Redis
+- **AI/ML**: Hugging Face Inference API for sentiment analysis
+- **Image Storage**: Cloudinary
+- **Containerization**: Docker, Docker Compose
+- **Testing**: Jest
+- **Code Quality**: ESLint
 
-## Add your files
+## 📦 Prerequisites
 
-* [Create](https://docs.gitlab.com/user/project/repository/web_editor/#create-a-file) or [upload](https://docs.gitlab.com/user/project/repository/web_editor/#upload-a-file) files
-* [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+- Node.js 18 or higher
+- Docker and Docker Compose
+- PostgreSQL (can use Docker container)
+- Redis (optional, can use Docker container)
+
+## 🚀 Quick Start
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/MananKakkar1/Sportsdeck.git
+cd Sportsdeck/sportsdeck
+```
+
+### 2. Install Dependencies
+```bash
+npm install
+```
+
+### 3. Setup Environment Variables
+Create a `.env.local` file in the `sportsdeck` directory:
+```bash
+cp .env.example .env.local
+```
+
+Configure the following variables:
+```env
+# Database
+DATABASE_URL=postgresql://user:password@localhost:5432/sportsdeck
+
+# Authentication
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your-secret-here
+ACCESS_TOKEN_SECRET=your-access-token-secret
+REFRESH_TOKEN_SECRET=your-refresh-token-secret
+
+# Redis
+REDIS_URL=redis://localhost:6379
+
+# AI/ML
+HF_TOKEN=your-hugging-face-token
+
+# Image Uploads
+CLOUDINARY_CLOUD_NAME=your-cloud-name
+CLOUDINARY_API_KEY=your-api-key
+CLOUDINARY_API_SECRET=your-api-secret
+
+# Optional: NBA API
+NBA_API_KEY=your-nba-api-key
+```
+
+### 4. Setup Database
+```bash
+npx prisma migrate dev
+npx prisma generate
+```
+
+### 5. (Optional) Import Sample Data
+```bash
+./import-data.sh
+```
+
+## 📖 Running the Application
+
+### Development Mode
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000)
+
+### Production Build
+```bash
+npm run build
+npm start
+```
+
+### Using Docker
+```bash
+docker-compose up --build
+```
+Access the app at [http://localhost:8087](http://localhost:8087)
+
+## 🧪 Testing
+
+Run the test suite:
+```bash
+npm test
+```
+
+Run tests in watch mode:
+```bash
+npm run test:watch
+```
+
+## 📁 Project Structure
 
 ```
-cd existing_repo
-git remote add origin https://mcsscm.utm.utoronto.ca/csc309_20261/group_192/PP2.git
-git branch -M main
-git push -uf origin main
+sportsdeck/
+├── app/                    # Next.js app directory
+│   ├── api/               # API routes
+│   ├── (main)/            # Main application pages
+│   └── admin/             # Admin dashboard
+├── components/            # Reusable React components
+├── lib/                   # Utility functions and configurations
+├── prisma/                # Database schema and migrations
+├── public/                # Static assets
+├── tests/                 # Test files
+├── scripts/               # Utility scripts and cron jobs
+└── docker/                # Docker configuration files
 ```
 
-## Integrate with your tools
+## 🔧 Available Scripts
 
-* [Set up project integrations](https://mcsscm.utm.utoronto.ca/csc309_20261/group_192/PP2/-/settings/integrations)
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm start` - Start production server
+- `npm test` - Run test suite
+- `npm run lint` - Run ESLint
+- `./start.sh` - Start the application with services
+- `./stop.sh` - Stop all running services
 
-## Collaborate with your team
+## 🗄️ Database
 
-* [Invite team members and collaborators](https://docs.gitlab.com/user/project/members/)
-* [Create a new merge request](https://docs.gitlab.com/user/project/merge_requests/creating_merge_requests/)
-* [Automatically close issues from merge requests](https://docs.gitlab.com/user/project/issues/managing_issues/#closing-issues-automatically)
-* [Enable merge request approvals](https://docs.gitlab.com/user/project/merge_requests/approvals/)
-* [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+This project uses PostgreSQL with Prisma as the ORM. Key entities include:
+- Users and authentication
+- Posts, threads, and forums
+- Matches and standings
+- Polls and voting
+- Reports and appeals
+- Follow relationships
 
-## Test and Deploy
+To view and manage your database:
+```bash
+npx prisma studio
+```
 
-Use the built-in continuous integration in GitLab.
+## 🤝 Contributing
 
-* [Get started with GitLab CI/CD](https://docs.gitlab.com/ci/quick_start/)
-* [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/user/application_security/sast/)
-* [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/topics/autodevops/requirements/)
-* [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/user/clusters/agent/)
-* [Set up protected environments](https://docs.gitlab.com/ci/environments/protected_environments/)
+Contributions are welcome! Please follow these guidelines:
+1. Create a new branch for your feature
+2. Make your changes
+3. Run tests to ensure they pass
+4. Submit a pull request
 
-***
+## 📄 License
 
-# Editing this README
+This project is licensed under the MIT License.
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+## 📧 Contact
 
-## Suggestions for a good README
-
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+For questions or support, please open an issue on GitHub.

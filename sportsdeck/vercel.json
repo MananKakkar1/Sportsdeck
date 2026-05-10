@@ -1,0 +1,60 @@
+{
+  "buildCommand": "npm run build && npx prisma migrate deploy",
+  "installCommand": "npm install && npx prisma generate",
+  "env": {
+    "DATABASE_URL": {
+      "description": "PostgreSQL connection string",
+      "required": true
+    },
+    "NEXTAUTH_URL": {
+      "description": "Your Vercel deployment URL",
+      "required": true
+    },
+    "NEXTAUTH_SECRET": {
+      "description": "Random secret for NextAuth (generate with: openssl rand -base64 32)",
+      "required": true
+    },
+    "ACCESS_TOKEN_SECRET": {
+      "description": "JWT access token secret",
+      "required": true
+    },
+    "REFRESH_TOKEN_SECRET": {
+      "description": "JWT refresh token secret",
+      "required": true
+    },
+    "REDIS_URL": {
+      "description": "Redis connection string",
+      "required": false
+    },
+    "HF_TOKEN": {
+      "description": "Hugging Face API token",
+      "required": false
+    },
+    "CLOUDINARY_CLOUD_NAME": {
+      "description": "Cloudinary cloud name",
+      "required": false
+    },
+    "CLOUDINARY_API_KEY": {
+      "description": "Cloudinary API key",
+      "required": false
+    },
+    "CLOUDINARY_API_SECRET": {
+      "description": "Cloudinary API secret",
+      "required": false
+    },
+    "NEXT_PUBLIC_API_URL": {
+      "description": "Public API URL",
+      "required": false
+    }
+  },
+  "crons": [
+    {
+      "path": "/api/cron/matches",
+      "schedule": "0 */6 * * *"
+    },
+    {
+      "path": "/api/cron/sentiment",
+      "schedule": "0 */12 * * *"
+    }
+  ]
+}

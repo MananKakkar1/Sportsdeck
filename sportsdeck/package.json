@@ -18,6 +18,9 @@
     "db:migrate": "npx prisma migrate dev",
     "db:generate": "npx prisma generate",
     "db:reset": "npx prisma migrate reset --force && npx prisma generate",
+    "vercel:deploy": "bash deploy-vercel.sh",
+    "vercel:setup": "bash vercel-setup.sh",
+    "vercel:secrets": "bash vercel-setup.sh",
     "postinstall": "node setup-prisma.js"
   },
   "dependencies": {
